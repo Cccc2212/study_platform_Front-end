@@ -1,4 +1,4 @@
-# 在线学习平台（待完善，欢迎大佬指导学习）
+# 在线学习平台---前端（待完善，欢迎大佬指导学习）
 
 ## 项目概述
 
@@ -18,17 +18,6 @@
 - **Umi Request**: 请求库
 - **正向和反向代理**: 用于处理请求和提高性能
 
-### 后端
-
-- **Java**: 编程语言
-- **Spring**: 依赖注入框架
-- **SpringMVC**: Web 框架
-- **SpringBoot**: 微服务框架
-- **MyBatis**: 数据访问框架
-- **MyBatis Plus**: MyBatis 的增强工具
-- **MySQL**: 数据库
-- **jUnit**: 单元测试库
-
 ## 功能模块
 
 1. **用户管理模块**: 实现用户登录、注册及账户管理功能。
@@ -43,66 +32,55 @@
 ### 前端
 
 1. **克隆仓库**
+
    ```bash
    git clone https://github.com/Cccc2212/study_platform_Front-end.git
    cd study_platform_Front-end
+   ```
 
+2. **安装依赖**
 
+   ```bash
+   npm install
+   ```
 
-# Ant Design Pro
+   或
 
-This project is initialized with [Ant Design Pro](https://pro.ant.design). Follow is the quick guide for how to use.
+   ```bash
+   yarn
+   ```
 
-## Environment Prepare
+3. **启动项目**
 
-Install `node_modules`:
+   ```bash
+   npm start
+   ```
 
-```bash
-npm install
+4. **构建项目**
+
+   ```bash
+   npm run build
+   ```
+
+5. **检查代码风格**
+
+   ```bash
+   npm run lint
+   ```
+
+   自动修复一些 lint 错误：
+
+   ```bash
+   npm run lint:fix
+   ```
+
+6. **测试代码**
+
+   ```bash
+   npm test
+   ```
+
+7. **更多信息**
+
+   你可以查看完整的文档在 [Ant Design Pro 官方网站](https://pro.ant.design)。欢迎在 [GitHub](https://github.com/ant-design/ant-design-pro) 提供反馈。
 ```
-
-or
-
-```bash
-yarn
-```
-
-## Provided Scripts
-
-Ant Design Pro provides some useful script to help you quick start and build with web project, code style check and test.
-
-Scripts provided in `package.json`. It's safe to modify or add additional script:
-
-### Start project
-
-```bash
-npm start
-```
-
-### Build project
-
-```bash
-npm run build
-```
-
-### Check code style
-
-```bash
-npm run lint
-```
-
-You can also use script to auto fix some lint error:
-
-```bash
-npm run lint:fix
-```
-
-### Test code
-
-```bash
-npm test
-```
-
-## More
-
-You can view full document on our [official website](https://pro.ant.design). And welcome any feedback in our [github](https://github.com/ant-design/ant-design-pro).
