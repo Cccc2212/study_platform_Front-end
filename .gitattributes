@@ -1,0 +1,11 @@
+# 适用于所有文本文件
+* text=auto
+
+# 手动指定文件类型的行结束符
+*.ts text eol=lf
+*.tsx text eol=lf
+*.js text eol=lf
+*.css text eol=lf
+*.html text eol=lf
+*.md text eol=lf
+*.json text eol=lf
