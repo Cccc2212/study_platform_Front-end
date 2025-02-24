@@ -2,6 +2,23 @@
 /* eslint-disable */
 
 declare namespace API {
+  //数独数据
+  // type SudokuParams = {
+  //   id: number;
+  //   initial_board: string; // 数独初始题目
+  //   solution: string; // 数独答案
+  //   difficulty: number; // 数独的难度级别（1 - 4）
+  // };
+  type SudokuParams = {
+    id: number;
+    initial_board: string | string[]; // 数独初始题目，解析为数组
+    solution: string | string[]; // 数独答案，解析为数组
+    difficulty: number; // 数独的难度级别（1 - 4）
+  };
+  type SudokuDTO = {
+    initial_board: string;
+    solution: string;
+  };
   type NavParams = {
     label?: string;
     navKey?: string;
@@ -68,14 +85,21 @@ declare namespace API {
     progress?: number;
   };
   /**
-   * 通用返回类
+   * 通用返回类(有修改）
    */
   type BaseResponse<T> = {
     code: number;
     data: T;
     message: string;
-    description:string;
-  }
+    description: string;
+  };
+  //   type BaseResponse<T> = {
+  //     code: number;
+  //     data: T | null;  // 防止 null 错误
+  //     message: string;
+  //     description: string;
+  //   }
+  // }
 
   type RuleList = {
     data?: RuleListItem[];

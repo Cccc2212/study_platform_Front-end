@@ -64,7 +64,7 @@ const ExamPage: React.FC<{
         }
         return prev > 0 ? prev - 1 : 0;
       });
-    }, 1000);//1000ms=1s
+    }, 1000); //1000ms=1s
 
     return () => clearInterval(interval); // 组件卸载时清除计时器
   }, [score, questionsAttempted, onFinish]);
@@ -116,6 +116,7 @@ const ExamPage: React.FC<{
         showInfo={false}
         status={timeUp ? 'exception' : 'active'}
       />
+
       <h2>考试页面</h2>
       {timeUp && <p style={{ color: 'red', fontWeight: 'bold' }}>时间到</p>}
       <Card title={`问题 ${currentQuestionIndex + 1}: ${currentQuestion.question}`}>

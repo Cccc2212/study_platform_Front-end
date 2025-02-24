@@ -1,6 +1,7 @@
 // @ts-ignore
 /* eslint-disable */
 import request from '@/plugins/globalRequest';
+import { message } from 'antd';
 
 /**
  * 用户操作区
@@ -35,7 +36,7 @@ export async function login(body: API.LoginParams, options?: { [key: string]: an
 }
 
 /** 注册接口 POST  /api/user/register */
-export async function register(body:API.RegisterParams, options?: { [key: string]: any }) {
+export async function register(body: API.RegisterParams, options?: { [key: string]: any }) {
   return request<API.BaseResponse<API.RegisterResult>>('/api/user/register', {
     method: 'POST',
     headers: {
@@ -45,7 +46,6 @@ export async function register(body:API.RegisterParams, options?: { [key: string
     ...(options || {}),
   });
 }
-
 
 /** 管理员搜索用户 GET /api/user/search */
 export async function searchUsers(options?: { [key: string]: any }) {
@@ -64,7 +64,7 @@ export async function searchUsersCommon(options?: { [key: string]: any }) {
 }
 
 /** 删除用户 POST /api/user/delete */
-export async function deleteUser(body:API.DeleteParams,options?: { [key: string]: any }) {
+export async function deleteUser(body: API.DeleteParams, options?: { [key: string]: any }) {
   return request<API.BaseResponse<API.DeleteParams>>('/api/user/delete', {
     method: 'POST',
     headers: {
@@ -74,6 +74,7 @@ export async function deleteUser(body:API.DeleteParams,options?: { [key: string]
     ...(options || {}),
   });
 }
+
 /** 更新用户 POST /api/user/update */
 export async function updateUser(body: API.UpdateParams, options?: { [key: string]: any }) {
   return request<API.BaseResponse<API.UpdateParams>>('/api/user/update', {
@@ -91,7 +92,7 @@ export async function updateUser(body: API.UpdateParams, options?: { [key: strin
  */
 
 /** 删除导航 POST /api/user/delete_nav */
-export async function deleteNav(body:API.DeleteParamsNav,options?: { [key: string]: any }) {
+export async function deleteNav(body: API.DeleteParamsNav, options?: { [key: string]: any }) {
   return request<API.BaseResponse<boolean>>('/api/user/delete_nav', {
     method: 'POST',
     headers: {
@@ -111,7 +112,7 @@ export async function searchNavs(options?: { [key: string]: any }) {
 }
 
 /** 创建导航接口 POST  /api/user/create_nav */
-export async function createNav(body:API.NavParams, options?: { [key: string]: any }) {
+export async function createNav(body: API.NavParams, options?: { [key: string]: any }) {
   return request<API.BaseResponse<boolean>>('/api/user/create_nav', {
     method: 'POST',
     headers: {
@@ -133,6 +134,54 @@ export async function updateNav(body: API.NavParams, options?: { [key: string]: 
     ...(options || {}),
   });
 }
+
+/**
+ * 数独操作区
+ */
+
+/** 获取随机数独题目 GET /api/sudoku/getRandomPuzzle */
+// export async function getRandomPuzzle(options?: { [key: string]: any }) {
+//   return request<API.BaseResponse<API.SudokuParams>>('/api/sudoku/getRandomPuzzle', {
+//     method: 'GET',
+//     ...(options || {}),
+//   });
+// }
+// api.ts
+export const getRandomPuzzle = async () => {
+  try {
+    const response = await fetch('/api/sudoku/getRandomPuzzle');
+    if (!response.ok) {
+      throw new Error(`HTTP 错误! 状态: ${response.status}`);
+    }
+    const data = await response.json();
+    console.log('获取的数独数据:', data);
+    return data;
+  } catch (error) {
+    console.error('获取数独题目失败:', error);
+    throw error;
+  }
+};
+
+/**
+ * 获取随机数独题目（按难度）
+ * GET /sudoku/getRandomPuzzleByDifficulty
+ */
+export async function getRandomPuzzleByDifficulty(options?: { difficulty?: number }) {
+  const params = options?.difficulty ? { difficulty: options.difficulty } : {};
+  try {
+    const response = await request<any>('/api/sudoku/getRandomPuzzleByDifficulty', {
+      method: 'GET',
+      params,
+    });
+    console.log('获取的数独数据:', response);
+    return response;
+  } catch (error) {
+    console.error('获取数独题目失败1:', error);
+    message.error((error as Error).message || '获取数独题目失败2');
+    throw error;
+  }
+}
+
 // /** 此处后端没有提供注释 GET /api/notices */
 // export async function getNotices(options?: { [key: string]: any }) {
 //   return request<API.NoticeIconList>('/api/notices', {

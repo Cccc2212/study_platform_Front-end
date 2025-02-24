@@ -12,9 +12,11 @@ export default [
   { name: '导航页', icon: 'Twitter', path: '/nav', component: './Nav' },
   { name: '做题页', icon: 'Book', path: '/exam', component: './Exam' },
 
-  { name: '查询页', icon: 'table', path: '/list', component: './TableList' },
+  { name: '查询页', icon: 'phone', path: '/list', component: './TableList' },
+  { name: '数独页', icon: 'star', path: '/sudoku', component: './Sudoku' },
+  { name: '2048游戏页', icon: 'number', path: '/game2048', component: './Game2048' },
+
   {
-    path: '/admin',
     name: '管理页',
     icon: 'crown',
     access: 'canAdmin',
@@ -25,6 +27,7 @@ export default [
       { component: './404' },
     ],
   },
+
   { path: '/', redirect: '/welcome' },
   { component: './404' },
 ];

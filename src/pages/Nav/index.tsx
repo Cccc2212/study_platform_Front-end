@@ -6,7 +6,7 @@ import {
   BilibiliOutlined,
   CrownOutlined,
   BellOutlined,
-  YuqueOutlined
+  YuqueOutlined,
 } from '@ant-design/icons';
 import { searchNavs } from '@/services/ant-design-pro/api'; // 根据实际路径调整
 
@@ -16,7 +16,7 @@ const iconMap: Record<string, React.ReactNode> = {
   bilibili: <BilibiliOutlined />,
   MOOC: <CrownOutlined />,
   CSDN: <BellOutlined />,
-  yuque:<YuqueOutlined/>
+  yuque: <YuqueOutlined />,
 };
 
 const NavigationMenu: React.FC = () => {
@@ -28,7 +28,6 @@ const NavigationMenu: React.FC = () => {
       try {
         const response = await searchNavs();
         console.log('完整 API response:', response); // 打印 response
-
         // 假设 response 是数组，直接使用
         if (Array.isArray(response)) {
           setItems(response); // 设置导航项
@@ -64,7 +63,6 @@ const NavigationMenu: React.FC = () => {
             </div>
           ),
           key: navKey,
-          title: '', // 如果需要使用描述信息，请在这里更新
         }))}
       />
       <div style={{ flex: 1 }}>
@@ -76,9 +74,7 @@ const NavigationMenu: React.FC = () => {
             onError={() => alert('该网站无法加载')}
           />
         ) : (
-          <div style={{ textAlign: 'center', paddingTop: '100px' }}>
-            点击一个网站进行访问
-          </div>
+          <div style={{ textAlign: 'center', paddingTop: '100px' }}>点击一个网站进行访问</div>
         )}
       </div>
     </div>
