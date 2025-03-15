@@ -14,7 +14,6 @@ export default [
 
   { name: '查询页', icon: 'phone', path: '/list', component: './TableList' },
   { name: '数独页', icon: 'star', path: '/sudoku', component: './Sudoku' },
-  { name: '2048游戏页', icon: 'number', path: '/game2048', component: './Game2048' },
 
   {
     name: '管理页',
@@ -24,6 +23,7 @@ export default [
     routes: [
       { path: '/admin/user-manage', name: '用户管理', component: './Admin/UserManage' },
       { path: '/admin/user-nav', name: '导航管理', component: './Admin/NavManage' },
+      { path: '/admin/sudoku-manage', name: '生成数独题目管理', component: './Admin/SudokuManage' },
       { component: './404' },
     ],
   },

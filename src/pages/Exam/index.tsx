@@ -55,7 +55,7 @@ const ExamPage: React.FC<{
   const [timeUp, setTimeUp] = useState(false);
 
   useEffect(() => {
-    const interval = setInterval(() => {
+    const interval = setInterval(() => {//jishi
       setTimer((prev) => {
         if (prev === 1) {
           setTimeUp(true);

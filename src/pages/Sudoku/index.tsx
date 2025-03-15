@@ -4,16 +4,92 @@ import { BilibiliFilled, QuestionCircleOutlined } from '@ant-design/icons';
 import './index.less';
 import { getRandomPuzzleByDifficulty } from '@/services/ant-design-pro/api';
 import { random } from 'lodash';
-
 const { Option } = Select;
 
-const SudokuPage: React.FC<{
+const SudokuMainPage: React.FC = () => {//初始主页面
+  const [started, setStarted] = useState(false);
+  const [finished, setFinished] = useState(false);
+  const [timeSpent, setTimeSpent] = useState(0);
+  const [isCorrect, setIsCorrect] = useState(false);
+  const [difficulty, setDifficulty] = useState<number | null>(null);
+
+  const startGame = () => {
+    if (difficulty === null) {
+      message.error('请选择难度！(难度暂时仅供参考)');
+      return;
+    }
+    setStarted(true);
+    setFinished(false);
+  };
+
+  // eslint-disable-next-line @typescript-eslint/no-shadow
+  const finishGame = (time: number, isCorrect: boolean) => {
+    setTimeSpent(time);
+    setIsCorrect(isCorrect);
+    setStarted(false);
+    setFinished(true);
+  };
+
+  // @ts-ignore
+  // @ts-ignore
+  // @ts-ignore
+  // @ts-ignore
+  return (
+    <div>
+      {!started && !finished && (
+        <div style={{ textAlign: 'center', paddingTop: '100px' }}>
+          <h1>欢迎来到数独游戏:)</h1>
+          <div style={{ margin: '20px 0' }}>
+            <span style={{ marginRight: '10px' }}>选择难度：</span>
+            <Select
+              placeholder="请选择难度"
+              style={{ width: 120 }}
+              onChange={(value: number) => setDifficulty(value)}
+              value={difficulty}
+            >
+              <Option value={1}>简单:)</Option>
+              <Option value={2}>中等:|</Option>
+              <Option value={3}>困难:(</Option>
+              <Option value={4}>极难:O</Option>
+              <Option value={5}>地狱XO</Option>
+              <Option value={random()}>随机难度</Option>
+            </Select>
+          </div>
+          <Button type="primary" size="large" onClick={startGame}>
+            开始游戏:)
+          </Button>
+          <br /> <br />
+          <Tooltip title="数独规则：在9x9的格子中填入1至9的数字。每一行、每一列、每个3x3的小格子内，数字不能重复。">
+            <Button
+              type="link"
+              icon={<QuestionCircleOutlined style={{ fontSize: '20px', color: '#1890ff' }} />}
+            />
+          </Tooltip>
+          <br /> <br />
+          <Button
+            type="link"
+            icon={<BilibiliFilled style={{ fontSize: '20px', color: '#1890ff' }} />}
+            href="https://www.bilibili.com/video/BV1Ag4y147kj/?spm_id_from=333.337.search-card.all.click"
+          >
+            视频教学
+          </Button>
+        </div>
+      )}
+      {started && !finished && (
+        <SudokuPage onFinish={finishGame} difficulty={difficulty}></SudokuPage>
+      )}
+      {finished && <ResultPage timeSpent={timeSpent} isCorrect={isCorrect} />}
+    </div>
+  );
+};
+
+const SudokuPage: React.FC<{//主页面
   onFinish: (timeSpent: number, isCorrect: boolean) => void;
   difficulty?: number;
 }> = ({ onFinish, difficulty }) => {
   const [board, setBoard] = useState<number[][]>([]);
-  const [initialBoard, setInitialBoard] = useState<number[][]>([]);
-  const [solution, setSolution] = useState<number[][]>([]);
+  const [initialBoard, setInitialBoard] = useState<number[][]>([]);//初始面板
+  const [solution, setSolution] = useState<number[][]>([]);//答案
   const [selectedCell, setSelectedCell] = useState<{ row: number; col: number } | null>(null);
   const [timer, setTimer] = useState(0);
   const [timeUp, setTimeUp] = useState(false);
@@ -112,7 +188,7 @@ const SudokuPage: React.FC<{
     if (selectedCell) {
       const { row, col } = selectedCell;
       if (board[row][col] !== solution[row][col]) {
-        if (isValidMove(board, row, col, num)) {
+        if (isValidMove(board, row, col, num)) {//规则检验
           const newBoard = [...board];
           newBoard[row][col] = num;
           setBoard(newBoard);
@@ -229,80 +305,6 @@ const ResultPage: React.FC<{ timeSpent: number; isCorrect: boolean }> = ({
   );
 };
 
-const SudokuMainPage: React.FC = () => {
-  const [started, setStarted] = useState(false);
-  const [finished, setFinished] = useState(false);
-  const [timeSpent, setTimeSpent] = useState(0);
-  const [isCorrect, setIsCorrect] = useState(false);
-  const [difficulty, setDifficulty] = useState<number | null>(null);
 
-  const startGame = () => {
-    if (difficulty === null) {
-      message.error('请选择难度！(难度暂时仅供参考)');
-      return;
-    }
-    setStarted(true);
-    setFinished(false);
-  };
-
-  // eslint-disable-next-line @typescript-eslint/no-shadow
-  const finishGame = (time: number, isCorrect: boolean) => {
-    setTimeSpent(time);
-    setIsCorrect(isCorrect);
-    setStarted(false);
-    setFinished(true);
-  };
-
-  // @ts-ignore
-  // @ts-ignore
-  // @ts-ignore
-  // @ts-ignore
-  return (
-    <div>
-      {!started && !finished && (
-        <div style={{ textAlign: 'center', paddingTop: '100px' }}>
-          <h1>欢迎来到数独游戏:)</h1>
-          <div style={{ margin: '20px 0' }}>
-            <span style={{ marginRight: '10px' }}>选择难度：</span>
-            <Select
-              placeholder="请选择难度"
-              style={{ width: 120 }}
-              onChange={(value: number) => setDifficulty(value)}
-              value={difficulty}
-            >
-              <Option value={1}>简单:)</Option>
-              <Option value={2}>中等:|</Option>
-              <Option value={3}>困难:(</Option>
-              <Option value={4}>极难:O</Option>
-              <Option value={random()}>随机难度</Option>
-            </Select>
-          </div>
-          <Button type="primary" size="large" onClick={startGame}>
-            开始游戏:)
-          </Button>
-          <br /> <br />
-          <Tooltip title="数独规则：在9x9的格子中填入1至9的数字。每一行、每一列、每个3x3的小格子内，数字不能重复。">
-            <Button
-              type="link"
-              icon={<QuestionCircleOutlined style={{ fontSize: '20px', color: '#1890ff' }} />}
-            />
-          </Tooltip>
-          <br /> <br />
-          <Button
-            type="link"
-            icon={<BilibiliFilled style={{ fontSize: '20px', color: '#1890ff' }} />}
-            href="https://www.bilibili.com/video/BV1Ag4y147kj/?spm_id_from=333.337.search-card.all.click"
-          >
-            视频教学
-          </Button>
-        </div>
-      )}
-      {started && !finished && (
-        <SudokuPage onFinish={finishGame} difficulty={difficulty}></SudokuPage>
-      )}
-      {finished && <ResultPage timeSpent={timeSpent} isCorrect={isCorrect} />}
-    </div>
-  );
-};
 
 export default SudokuMainPage;

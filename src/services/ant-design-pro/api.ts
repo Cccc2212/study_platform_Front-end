@@ -1,7 +1,7 @@
 // @ts-ignore
 /* eslint-disable */
 import request from '@/plugins/globalRequest';
-import { message } from 'antd';
+import {message} from 'antd';
 
 /**
  * 用户操作区
@@ -167,7 +167,7 @@ export const getRandomPuzzle = async () => {
  * GET /sudoku/getRandomPuzzleByDifficulty
  */
 export async function getRandomPuzzleByDifficulty(options?: { difficulty?: number }) {
-  const params = options?.difficulty ? { difficulty: options.difficulty } : {};
+  const params = options?.difficulty ? {difficulty: options.difficulty} : {};
   try {
     const response = await request<any>('/api/sudoku/getRandomPuzzleByDifficulty', {
       method: 'GET',
@@ -182,6 +182,30 @@ export async function getRandomPuzzleByDifficulty(options?: { difficulty?: numbe
   }
 }
 
+/**
+ *  保存数独题目
+ *  POST  /sudoku/savePuzzle
+ */
+export async function saveSudokuPuzzle(puzzle: { initial_board: string; solution: string; difficulty: number }) {
+  try {
+    const response = await request<any>(
+      '/api/sudoku/savePuzzle',
+      {
+        method: 'POST',
+        data: puzzle,
+      }
+    );
+    if (response) {
+      return response;
+    } else {
+      throw new Error(response.msg || '保存失败');
+    }
+  } catch (error) {
+    console.error('保存数独失败:', error);
+    message.error((error as Error).message || '保存失败111');
+    throw error;
+  }
+}
 // /** 此处后端没有提供注释 GET /api/notices */
 // export async function getNotices(options?: { [key: string]: any }) {
 //   return request<API.NoticeIconList>('/api/notices', {
