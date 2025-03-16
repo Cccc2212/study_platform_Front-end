@@ -1,7 +1,7 @@
 // @ts-ignore
 /* eslint-disable */
 import request from '@/plugins/globalRequest';
-import {message} from 'antd';
+import { message } from 'antd';
 
 /**
  * 用户操作区
@@ -167,7 +167,7 @@ export const getRandomPuzzle = async () => {
  * GET /sudoku/getRandomPuzzleByDifficulty
  */
 export async function getRandomPuzzleByDifficulty(options?: { difficulty?: number }) {
-  const params = options?.difficulty ? {difficulty: options.difficulty} : {};
+  const params = options?.difficulty ? { difficulty: options.difficulty } : {};
   try {
     const response = await request<any>('/api/sudoku/getRandomPuzzleByDifficulty', {
       method: 'GET',
@@ -181,20 +181,38 @@ export async function getRandomPuzzleByDifficulty(options?: { difficulty?: numbe
     throw error;
   }
 }
-
+/** 搜索数独题目 GET /api/sudoku/search_sudoku */
+export async function searchSudokus(options?: { [key: string]: any }) {
+  return request<API.BaseResponse<API.NavParams[]>>('/api/sudoku/search_sudoku', {
+    method: 'GET',
+    ...(options || {}),
+  });
+}
+/** 删除导航 POST /api/sudoku/delete_sudoku */
+export async function deleteSudoku(body: { id: number }, options?: { [p: number]: any }) {
+  return request<API.BaseResponse<boolean>>('/api/sudoku/delete_sudoku', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: body,
+    ...(options || {}),
+  });
+}
 /**
  *  保存数独题目
  *  POST  /sudoku/savePuzzle
  */
-export async function saveSudokuPuzzle(puzzle: { initial_board: string; solution: string; difficulty: number }) {
+export async function saveSudokuPuzzle(puzzle: {
+  initial_board: string;
+  solution: string;
+  difficulty: number;
+}) {
   try {
-    const response = await request<any>(
-      '/api/sudoku/savePuzzle',
-      {
-        method: 'POST',
-        data: puzzle,
-      }
-    );
+    const response = await request<any>('/api/sudoku/savePuzzle', {
+      method: 'POST',
+      data: puzzle,
+    });
     if (response) {
       return response;
     } else {

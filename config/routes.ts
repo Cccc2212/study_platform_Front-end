@@ -23,7 +23,12 @@ export default [
     routes: [
       { path: '/admin/user-manage', name: '用户管理', component: './Admin/UserManage' },
       { path: '/admin/user-nav', name: '导航管理', component: './Admin/NavManage' },
-      { path: '/admin/sudoku-manage', name: '生成数独题目管理', component: './Admin/SudokuManage' },
+      { path: '/admin/sudoku-manage', name: '数独题目管理', component: './Admin/SudokuManage' },
+      {
+        path: '/admin/sudoku-generate',
+        name: '生成数独题目管理',
+        component: './Admin/SudokuGenerate',
+      },
       { component: './404' },
     ],
   },

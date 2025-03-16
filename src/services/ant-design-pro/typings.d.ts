@@ -28,6 +28,9 @@ declare namespace API {
   type DeleteParamsNav = {
     navKey?: string;
   };
+  type DeleteParamsSudoku = {
+    navKey?: number;
+  };
   type CurrentUser = {
     id: number;
     username: string;

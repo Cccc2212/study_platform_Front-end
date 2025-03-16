@@ -6,7 +6,8 @@ import { getRandomPuzzleByDifficulty } from '@/services/ant-design-pro/api';
 import { random } from 'lodash';
 const { Option } = Select;
 
-const SudokuMainPage: React.FC = () => {//初始主页面
+const SudokuMainPage: React.FC = () => {
+  //初始主页面
   const [started, setStarted] = useState(false);
   const [finished, setFinished] = useState(false);
   const [timeSpent, setTimeSpent] = useState(0);
@@ -30,6 +31,11 @@ const SudokuMainPage: React.FC = () => {//初始主页面
     setFinished(true);
   };
 
+  // @ts-ignore
+  // @ts-ignore
+  // @ts-ignore
+  // @ts-ignore
+  // @ts-ignore
   // @ts-ignore
   // @ts-ignore
   // @ts-ignore
@@ -76,20 +82,23 @@ const SudokuMainPage: React.FC = () => {//初始主页面
         </div>
       )}
       {started && !finished && (
+        // eslint-disable-next-line @typescript-eslint/no-use-before-define
         <SudokuPage onFinish={finishGame} difficulty={difficulty}></SudokuPage>
       )}
+      {/* eslint-disable-next-line @typescript-eslint/no-use-before-define */}
       {finished && <ResultPage timeSpent={timeSpent} isCorrect={isCorrect} />}
     </div>
   );
 };
 
-const SudokuPage: React.FC<{//主页面
+const SudokuPage: React.FC<{
+  //主页面
   onFinish: (timeSpent: number, isCorrect: boolean) => void;
   difficulty?: number;
 }> = ({ onFinish, difficulty }) => {
   const [board, setBoard] = useState<number[][]>([]);
-  const [initialBoard, setInitialBoard] = useState<number[][]>([]);//初始面板
-  const [solution, setSolution] = useState<number[][]>([]);//答案
+  const [initialBoard, setInitialBoard] = useState<number[][]>([]); //初始面板
+  const [solution, setSolution] = useState<number[][]>([]); //答案
   const [selectedCell, setSelectedCell] = useState<{ row: number; col: number } | null>(null);
   const [timer, setTimer] = useState(0);
   const [timeUp, setTimeUp] = useState(false);
@@ -188,7 +197,8 @@ const SudokuPage: React.FC<{//主页面
     if (selectedCell) {
       const { row, col } = selectedCell;
       if (board[row][col] !== solution[row][col]) {
-        if (isValidMove(board, row, col, num)) {//规则检验
+        if (isValidMove(board, row, col, num)) {
+          //规则检验
           const newBoard = [...board];
           newBoard[row][col] = num;
           setBoard(newBoard);
@@ -304,7 +314,5 @@ const ResultPage: React.FC<{ timeSpent: number; isCorrect: boolean }> = ({
     </div>
   );
 };
-
-
 
 export default SudokuMainPage;
